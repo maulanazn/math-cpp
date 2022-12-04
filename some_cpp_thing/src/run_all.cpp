@@ -1,5 +1,6 @@
 #include "../include/run_all.hpp"
 
 void cppthing::run() {
-    cppthing::classes();
+    cppthing::access_member();
 }
+
