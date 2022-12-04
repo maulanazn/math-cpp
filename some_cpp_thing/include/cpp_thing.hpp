@@ -1,15 +1,7 @@
 #include <iostream>
-#include <vector>
-#include <thread>
-#include <atomic>
-#include <algorithm>
-#include <map>
+#include <string>
 
 namespace cppthing 
 {
-    int processing();
-    int thread();
-    char typecaster();
-    std::string namechecking();
-    int run_cpp();
+    int classes();
 }

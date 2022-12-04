@@ -1,77 +1,43 @@
 #include "../include/cpp_thing.hpp"
 
-// this whole thing called header guarding
+class Building{
+public:
+    int width_building;
+    int height_building;
+    friend std::string showarchitech(std::string architech);
+private:
+    friend class Office;
+};
 
-int cppthing::processing() {
-    std::cout << "sorting number provided by weirdwire\n";
-    std::vector<int> a;
+class Office: public Building {
+public:
+    int office_width;
+    int office_height;
+    friend std::string showarchitech(std::string architech);
+};
+
+union Vector3 {
+    float x, y, z;
+};
+
+inline std::string showarchitech(std::string architech) {
+    return architech;
+}
+
+int cppthing::classes() {
+    Office ofc;
     
-    while(std::cin) {
-        std::cout << "input one number\n";
-        int x = 0;
-        std::cin >> x;
-        if (!std::cin.fail()) {
-            a.push_back(x);
-        }
-    }
+    int width_office = (ofc.office_width = 100);
+    int width = (ofc.width_building = 100);
+    std::cout << width << std::endl;
 
-    std::sort(a.begin(), a.end());
-    int size_of_a = a.size();
-    for (int i = 0; i < size_of_a; i++) {
-        std::cout << a[i] << std::endl;
-    }
+    Vector3 vtx3;
+    float x = vtx3.x = 10.0;
+    float y = vtx3.y = 20.0;
+    float z = vtx3.z = 50.0;
 
-    return 0;
-}
-
-void add (int a, int b, std::atomic<int> * result) {
-    for (int i = a; i <= b; i++) {
-        result->fetch_add(i);
-    }
-}
-
-int cppthing::thread() {
-    std::atomic<int> shared = 10;
-
-    std::thread addingThread(add, 1, 10000, &shared);
-    while (!addingThread.joinable()) {
-        std::cout << shared.load() << std::endl;
-    }
-
-    addingThread.join();
-
-    return 0;
-}    
-
-char cppthing::typecaster() {
-    char character = ' ';
-    int intfromchar = (int) character;
-
-    int failedtocast = (intfromchar == character) ? intfromchar: 0;
-
-    std::cout << failedtocast << std::endl;
+    std::cout << "building size on x axis is " << x  << std::endl << "building size on y axis is \n" << y << std::endl << "building size on z axis is \n" << z << std::endl;
+    std::cout << "the architech is mr " << showarchitech("fatih") << std::endl;
     
-    return character;
-}
-
-std::string cppthing::namechecking() {
-    std::cout << "checking if you're employee\n";
-
-    std::string name;   
-    std::cin >> name;
-
-    std::cout << "welcome " << name << std::endl;
-
-    return name;
-}
-
-int cppthing::run_cpp() {
-    // processing();
-    // add();
-    // typecaster();
-    // thread();
-    namechecking();
-
     return 0;
 }
-
