@@ -1,6 +1,7 @@
 #include "../include/run_all.hpp"
 
 void cppthing::run() {
-    cppthing::itsoverloading();
+    cppthing::access_date();
+    cppthing::access_time();
 }
 
