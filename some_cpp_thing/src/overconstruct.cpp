@@ -8,7 +8,17 @@ private:
     int month, year, day;
 };
 
-void Date::set_date(int m, int y, int d) {
+class Time {
+public:
+    Time(int s);
+    Time(int h, int m, int s);
+    void show_second();
+    void show_time();
+private:
+    int hour, minute, second;
+};
+
+void Date::set_date(int m = 10, int y = 2010, int d = 1) {
     month = m;
     year = y;
     day = d;
@@ -21,21 +31,11 @@ void Date::show_date() {
 int cppthing::access_date() {
     Date dt;
 
-    dt.set_date(10, 10, 2010);
+    dt.set_date();
     dt.show_date();
 
     return 0;
 }
-
-class Time {
-public:
-    Time(int s);
-    Time(int h, int m, int s);
-    void show_second();
-    void show_time();
-private:
-    int hour, minute, second;
-};
 
 Time::Time(int s) {
     second = s;

@@ -78,7 +78,8 @@
         "ios": "cpp",
         "locale": "cpp",
         "queue": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "complex": "cpp"
     },
     "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
     "C_Cpp.errorSquiggles": "Disabled",
