@@ -26,5 +26,10 @@ int selection_sort() {
 int cppthing::access_array() {
     selection_sort();
 
+    std::array<int, 5> numbers{1,2,3,4,5};
+
+    for (int i = 0; i < 5; i++)
+        std::cout << numbers[i] << std::endl;
+
     return 0;
 }
