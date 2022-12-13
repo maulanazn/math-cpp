@@ -3,10 +3,8 @@
 #include <algorithm>
 #include <vector>
 #include <array>
-#include <iterator>
+#include <chrono>
 
 namespace cppthing {
-    int access_enum();
     int access_array();
-    int access_vector();
 }
