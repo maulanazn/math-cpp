@@ -1,4 +1,5 @@
 #include <iostream>
+#include <compare>
 #include <math.h>
 
 namespace cppthing{
