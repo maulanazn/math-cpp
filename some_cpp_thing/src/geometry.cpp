@@ -1,46 +1,87 @@
 #include "../include/geometry.hpp"
 
-class Cube {
+class Cube;
+
+class Geometry {
 private:
-    int c_x;
-    int c_y;
-    int c_z;
+    std::vector<std::reference_wrapper<const Cube>> m_cube{};
+    int cube_size{};
 public:
-    Cube(int x=0, int y=0, int z=0): c_x{x}, c_y{y}, c_z{z} {}
+    Geometry(int &c_size): cube_size{c_size} {}
+    void addCube(Cube &cube);
     
-    friend std::ostream &operator<<(std::ostream &out, Cube &cb);
-    friend std::istream &operator>>(std::istream &in, Cube &cb);
-    friend Cube operator*(const Cube &width, const Cube &height);
-    
-    int getCubeVolume() {return {c_x * c_y * c_z};}
+    friend std::ostream& operator<<(std::ostream& out, Geometry &gm);
+
+    const int &getCube() const {return cube_size;}
 };
 
-std::ostream &operator<<(std::ostream &out, Cube &cb) {
-    out << cb.c_x << " " << cb.c_y << " " << cb.c_z << "\n";
+class Cube {
+private:
+    int cube_size{};
+    std::vector<std::reference_wrapper<const Geometry>> m_geometry{};
+    void addGeometry(const Geometry &gm) {
+        m_geometry.push_back(gm);
+    }   
+public:
+    Cube(int &c_size): cube_size{c_size} {}
+    friend std::ostream& operator<<(std::ostream& out, Cube &cube);
+
+    const int getCube() const {return cube_size;}
+    friend void Geometry::addCube(Cube &cube);
+};
+
+void Geometry::addCube(Cube &cube) {
+    m_cube.push_back(cube);
+    cube.addGeometry(*this);
+}
+
+std::ostream& operator<<(std::ostream& out, Geometry &gm) {
+    if (gm.m_cube.empty()) {
+        out << gm.cube_size << " has no size now\n";
+        return out;
+    }
+
+    out << gm.cube_size << " is available\n";
+
+    for (auto const &cube: gm.m_cube) {
+        out << gm.getCube() << " ";
+    }
 
     return out;
 }
 
-std::istream &operator>>(std::istream &in, Cube &cb) {
-    in >> cb.c_x;
-    in >> cb.c_y;
-    in >> cb.c_z;
+std::ostream& operator<<(std::ostream& out, Cube &cube) {
+    if (cube.m_geometry.empty()) {
+        out << cube.cube_size << " has no size now\n";
+        return out;
+    }
 
-    return in;
+    out << cube.cube_size << " is available\n";
+    for (auto const &gm: cube.m_geometry) {
+        out << cube.getCube() << " ";
+    }
+
+    return out;
 }
 
-Cube operator*(const Cube &width, const Cube &height) {
-    return {width.c_x * width.c_y * width.c_z};
-}
+int cppthing::access_gm() { 
+    int cube = 100;
 
-int cppthing::access_gm() {
-    Cube cb;
-    Cube cbtimes{2,3,4};
+    Cube cb1{cube};
+    Cube cb2{cube};
+    Cube cb3{cube};
 
-    std::cin >> cb;
-    std::cout << cb << std::endl;
+    Geometry gm1{cube};
+    
+    gm1.addCube(cb1);
+    gm1.addCube(cb2);
+    gm1.addCube(cb1);
 
-    std::cout << cbtimes.getCubeVolume() << std::endl;
+
+    std::cout << cb1 << std::endl;
+    std::cout << cb2 << std::endl;
+    std::cout << cb3 << std::endl;
+
 
     return 0;
 }
